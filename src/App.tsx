@@ -12,8 +12,8 @@ export default function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/early-access" element={<EarlyAccess />} />
       <Route path="/waitlist" element={<Waitlist />} />
-      {/* Preview route for menubar app embedding */}
-      <Route path="/preview" element={<Navigate to="/dashboard" replace />} />
+      {/* Catch-all route for menubar preview embedding and unknown paths */}
+      <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
   )
 }
