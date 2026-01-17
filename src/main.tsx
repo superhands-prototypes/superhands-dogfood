@@ -8,16 +8,24 @@ import App from './App'
 import './index.css'
 
 /**
- * Detect when loaded via the /preview route in the menubar.
- * BrowserRouter tries to call history.replaceState() with the prototype's URL,
- * but the document origin is the menubar's localhost - causing a cross-origin
- * security error. MemoryRouter keeps routing in memory without touching browser history.
+ * Detect when embedded in menubar preview (cross-origin iframe).
+ * BrowserRouter calls history.replaceState() with the prototype's URL,
+ * but the document origin is the menubar's localhost - causing a security error.
+ * MemoryRouter keeps routing in memory without touching browser history.
  */
-function isMenubarPreview(): boolean {
-  return window.location.pathname.startsWith('/preview')
+function isEmbeddedPreview(): boolean {
+  // Check for /preview path (menubar proxy serves content here)
+  if (window.location.pathname.startsWith('/preview')) return true
+
+  // Fallback: detect iframe embedding (cross-origin access throws)
+  try {
+    return window.self !== window.top
+  } catch {
+    return true
+  }
 }
 
-const Router = isMenubarPreview() ? MemoryRouter : BrowserRouter
+const Router = isEmbeddedPreview() ? MemoryRouter : BrowserRouter
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
