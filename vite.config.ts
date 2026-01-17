@@ -10,12 +10,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  server: {
-    port: 3001,
-    open: false,
-    host: '0.0.0.0',
-    hmr: {
-      clientPort: 443,
-    },
-  },
 })
