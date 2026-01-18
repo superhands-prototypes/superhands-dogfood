@@ -60,7 +60,7 @@ export default function Login() {
 
           <div className="w-full max-w-sm bg-card rounded-[18px] p-8 border border-border shadow-md">
             <h2 className="text-2xl font-semibold text-foreground mb-2 text-left leading-tight">
-              {isForgot ? "Reset your password" : "Login Now"}
+              {isForgot ? "Reset your password" : "Login"}
             </h2>
             {!isForgot && (
               <p className="text-sm text-foreground mb-6 text-left leading-tight">
